@@ -46,170 +46,135 @@ const questions = [
     },
     {
       question: "A duhet të rriten fondet për ushtrinë?",
-      options: ["Po", "Jo", "Vetëm për mbrojtje"],
-      policyTags: ["mbrojtja"]
+      options: ["Po", "Jo", "Vetëm për teknologji"],
+      policyTags: ["siguria", "mbrojtja"]
     },
     {
-      question: "Si duhet trajtuar ndotja e ajrit?",
-      options: ["Taksa për ndotësit", "Inkurajim i energjive të pastra", "Vetë-rregullim industrial"],
-      policyTags: ["mjedis"]
+      question: "Si duhet trajtuar çështjet e të drejtave të komuniteteve LGBTQ+?",
+      options: ["Mbështetje dhe ligje mbrojtëse", "Neutralitet", "Kundërshtim"],
+      policyTags: ["te drejtat"]
     },
     {
-      question: "A duhet të ketë një pagë minimale universale?",
-      options: ["Po", "Jo", "Vetëm në kriza ekonomike"],
-      policyTags: ["ekonomi", "te drejtat"]
+      question: "A duhet të ketë më shumë investime në infrastrukturë?",
+      options: ["Po, shumë", "Jo shumë", "Mjafton statusi aktual"],
+      policyTags: ["ekonomi", "infrastrukturë"]
     },
     {
-      question: "Cili është roli i fesë në shtet?",
-      options: ["Shtet laik", "Mbështetje ndaj vlerave fetare", "Neutralitet absolut"],
-      policyTags: ["kulture", "te drejtat"]
+      question: "Cili është qëndrimi yt për përdorimin e teknologjisë në shkollë?",
+      options: ["Më shumë", "Jo shumë", "Vetëm në disa fusha"],
+      policyTags: ["arsim", "teknologji"]
     },
     {
-      question: "A duhet ndaluar reklamimi i produkteve të dëmshme?",
-      options: ["Po", "Jo", "Vetëm për të miturit"],
-      policyTags: ["shendetesia"]
+      question: "A duhet të ketë më shumë ligje për mbrojtjen e privatësisë në internet?",
+      options: ["Po", "Jo", "Nuk e di"],
+      policyTags: ["teknologji", "te drejtat"]
     },
     {
-      question: "Si duhet trajtuar mbikëqyrja dixhitale?",
-      options: ["Më shumë mbikëqyrje për siguri", "Kufizim i mbledhjes së të dhënave", "Vetëm me leje gjyqësore"],
-      policyTags: ["privatesi", "siguria"]
+      question: "Si e sheh rolin e BE-së në politikën kombëtare?",
+      options: ["Mbështetje e plotë", "Kritike", "Neutral"],
+      policyTags: ["politikë", "bashkëpunim"]
     }
   ];
   
-  let currentQuestion = 0;
+  let currentQuestionIndex = 0;
+  const totalQuestions = questions.length;
+  
+  const questionEl = document.getElementById("question");
+  const optionsEl = document.getElementById("options");
+  const progressEl = document.getElementById("quiz-progress");
+  const progressTextEl = document.getElementById("progress-text");
+  const mainEl = document.getElementById("question-section");
+  
   let userAnswers = [];
   
-  function showQuestion() {
-    const q = questions[currentQuestion];
-    const questionElem = document.getElementById("question");
-    const optionsDiv = document.getElementById("options");
+  function loadQuestion() {
+    const currentQ = questions[currentQuestionIndex];
+    questionEl.textContent = currentQ.question;
+    optionsEl.innerHTML = "";
   
-    questionElem.textContent = q.question;
-    optionsDiv.innerHTML = "";
-  
-    q.options.forEach((opt, idx) => {
-      const button = document.createElement("button");
-      button.classList.add("option-btn");
-      button.textContent = opt;
-      button.setAttribute("data-index", idx);
-      button.onclick = () => {
-        // Ruaj përgjigjen me indeks dhe tags
-        userAnswers.push({ answerIndex: idx, tags: q.policyTags });
-        nextQuestion();
-      };
-      optionsDiv.appendChild(button);
+    currentQ.options.forEach((option, index) => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.textContent = option;
+      btn.onclick = () => selectAnswer(index);
+      btn.setAttribute("aria-label", `Përgjigjja ${index + 1}: ${option}`);
+      optionsEl.appendChild(btn);
     });
+  
+    updateProgress();
   }
   
-  function nextQuestion() {
-    currentQuestion++;
-    if (currentQuestion < questions.length) {
-      showQuestion();
+  function updateProgress() {
+    const progressPercent = (currentQuestionIndex / totalQuestions) * 100;
+    progressEl.value = progressPercent;
+    progressTextEl.textContent = `${currentQuestionIndex} / ${totalQuestions}`;
+  }
+  
+  function selectAnswer(selectedIndex) {
+    userAnswers[currentQuestionIndex] = selectedIndex;
+    currentQuestionIndex++;
+  
+    if (currentQuestionIndex < totalQuestions) {
+      loadQuestion();
     } else {
       showResults();
     }
   }
   
-  function calculatePolicyMatch() {
-    // Ky funksion bën llogaritje të ndryshme për secilën përgjigje.
-    // Për shembull, indeks 0 = më pro, indeks 1 = kundër, indeks 2 = neutral.
-    // Krijojmë një peshë për secilën zgjedhje për të ndryshuar rezultatet.
-  
-    const tagScores = {};
-  
-    userAnswers.forEach(({ answerIndex, tags }) => {
-      tags.forEach(tag => {
-        if (!tagScores[tag]) tagScores[tag] = 0;
-  
-        // Pesha nga përgjigja
-        // Indeks 0 = +2, Indeks 1 = -1, Indeks 2 = +0
-        if (answerIndex === 0) tagScores[tag] += 2;
-        else if (answerIndex === 1) tagScores[tag] -= 1;
-        else tagScores[tag] += 0;
-      });
-    });
-  
-    // Kthejmë objektin të radhitur nga më i madh tek më i vogli
-    return Object.entries(tagScores)
-      .sort((a, b) => b[1] - a[1]);
-  }
-  
   function showResults() {
-    const sortedTags = calculatePolicyMatch();
-    const mainArea = document.getElementById("question-section");
-  
-    // Ndërtim i tekstit shtesë sipas pikëve
-    let detailedInfo = '';
-    sortedTags.forEach(([tag, score]) => {
-      let explanation = '';
-      switch(tag) {
-        case 'takse':
-          explanation = 'Qasjet për taksat ndikojnë në mënyrën sesi menaxhohet ekonomia dhe financat publike.';
-          break;
-        case 'ekonomi':
-          explanation = 'Politikat ekonomike ndikojnë në punësim, rritje dhe barazi.';
-          break;
-        case 'mjedis':
-          explanation = 'Politikat e mjedisit përfshijnë mbrojtjen e natyrës dhe burimeve natyrore.';
-          break;
-        case 'energjia':
-          explanation = 'Fokusi në energjinë e pastër është kyç për qëndrueshmërinë e planetit.';
-          break;
-        case 'emigracion':
-          explanation = 'Politikat e emigracionit ndikojnë në demografinë dhe ekonominë.';
-          break;
-        case 'shendetesia':
-          explanation = 'Sistemi shëndetësor përcakton aksesin dhe cilësinë e kujdesit mjekësor.';
-          break;
-        case 'te drejtat':
-          explanation = 'Çështjet e të drejtave prekin barazinë dhe liritë individuale.';
-          break;
-        case 'siguria':
-          explanation = 'Siguria kombëtare dhe personale janë pjesë e prioriteteve shtetërore.';
-          break;
-        case 'arsim':
-          explanation = 'Arsimi është baza e zhvillimit të qëndrueshëm të shoqërisë.';
-          break;
-        case 'mbrojtja':
-          explanation = 'Fokusi në mbrojtjen kombëtare përcakton investimet në ushtri.';
-          break;
-        case 'kulture':
-          explanation = 'Çështjet kulturore përfshijnë trashëgiminë dhe identitetin kombëtar.';
-          break;
-        case 'privatesi':
-          explanation = 'Privatësia është një çështje kryesore në epokën dixhitale.';
-          break;
-        default:
-          explanation = 'Informacion i përgjithshëm mbi këtë fushë politike.';
-      }
-      detailedInfo += `<li><strong>${tag}</strong> (${score} pikë): ${explanation}</li>`;
-    });
-  
-    mainArea.innerHTML = `
-      <section id="result-section">
-        <h2>Rezultatet e tua</h2>
-        <p>Fushat ku ke përputhje më të madhe bazuar në përgjigjet:</p>
-        <ul>${detailedInfo}</ul>
-        <a href="summary.html" class="summary-link" target="_blank" rel="noopener noreferrer">
-          Lexo përmbledhje të ligjeve dhe votimeve të ardhshme
-        </a>
-        <button id="restart-btn" class="option-btn">Rifillo Kuizin</button>
+    mainEl.innerHTML = `
+      <section id="result-section" tabindex="0" aria-live="polite">
+        <h2>Rezultatet e Kuizit</h2>
+        <p>Faleminderit që plotësuat kuizin! Këtu janë disa përputhje bazike me politikat:</p>
+        <ul id="result-list"></ul>
+        <div id="party-result"></div>
+        <a href="summary.html" class="summary-link" aria-label="Shiko përmbledhjen e ligjeve dhe votimeve të ardhshme">Shiko përmbledhjen e ligjeve dhe votimeve të ardhshme</a>
       </section>
     `;
   
-    document.getElementById("restart-btn").onclick = () => {
-      restartQuiz();
-    };
+    let ekonomiScore = 0;
+    let mjedisScore = 0;
+    let socialScore = 0;
+  
+    userAnswers.forEach((answerIndex, questionIndex) => {
+      const question = questions[questionIndex];
+      if (question.policyTags.includes("ekonomi")) ekonomiScore += answerIndex;
+      if (question.policyTags.includes("mjedis")) mjedisScore += answerIndex;
+      if (question.policyTags.includes("te drejtat") || question.policyTags.includes("social")) socialScore += answerIndex;
+    });
+  
+    function getMatchingParty(ekonomiScore, mjedisScore, socialScore) {
+      const parties = [
+        { name: "Partia Demokratike e Kosovës", focus: "Fokus në taksa dhe ekonomi", score: ekonomiScore },
+        { name: "Lëvizja Vetëvendosje", focus: "Politika mjedisore dhe energjia", score: mjedisScore },
+        { name: "Lidhja Demokratike e Kosovës", focus: "Politika sociale dhe të drejtat", score: socialScore },
+      ];
+      parties.sort((a, b) => b.score - a.score);
+      return parties[0];
+    }
+  
+    const matchedParty = getMatchingParty(ekonomiScore, mjedisScore, socialScore);
+  
+    const resultDiv = document.getElementById('party-result');
+    resultDiv.innerHTML = `
+      <h3>Partia që i përshtatet më së miri rezultateve tuaja:</h3>
+      <p><strong>${matchedParty.name}</strong> — ${matchedParty.focus}</p>
+    `;
+  
+    const resultList = document.getElementById("result-list");
+    const matches = [
+      "Partia Demokratike e Kosovës - Fokus në taksa dhe ekonomi",
+      "Lëvizja Vetëvendosje - Politika mjedisore dhe energjia",
+      "Lidhja Demokratike e Kosovës - Politika sociale dhe të drejtat",
+    ];
+    matches.forEach(match => {
+      const li = document.createElement("li");
+      li.textContent = match;
+      resultList.appendChild(li);
+    });
+    
+    resultList.focus();
   }
   
-  function restartQuiz() {
-    currentQuestion = 0;
-    userAnswers = [];
-    showQuestion();
-  }
-  
-  window.onload = () => {
-    showQuestion();
-  };
-  
+  window.onload = loadQuestion;
   

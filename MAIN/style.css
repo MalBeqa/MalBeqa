@@ -5,6 +5,8 @@
   --gray-light: #f4f4f4;
   --accent: #ff3b30;
   --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --border-radius: 12px;
+  --transition-speed: 0.3s;
 }
 
 * {
@@ -25,114 +27,173 @@ header {
   background: var(--red-primary);
   color: white;
   text-align: center;
-  padding: 1rem 1.5rem;
+  padding: 1.5rem 1.5rem;
   box-shadow: 0 4px 8px rgba(217, 48, 37, 0.4);
 }
 
 header h1 {
   margin: 0;
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   font-weight: 700;
 }
 
 header p {
-  margin-top: 0.3rem;
-  font-size: 1.2rem;
+  margin-top: 0.4rem;
+  font-size: 1.3rem;
   font-style: italic;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 main {
   flex-grow: 1;
-  padding: 2rem 1rem;
-  max-width: 700px;
-  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  max-width: 720px;
+  margin: 2rem auto;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(217, 48, 37, 0.2);
+  border-radius: var(--border-radius);
+  box-shadow: 0 8px 24px rgba(217, 48, 37, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#question-container {
+  width: 100%;
 }
 
 #question-container h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  margin-bottom: 2rem;
   color: var(--red-primary);
-  font-weight: 600;
+  font-weight: 700;
+  text-align: center;
 }
 
 #options {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
+  width: 100%;
 }
 
 .option-btn {
   background: var(--red-light);
   border: none;
-  padding: 14px 18px;
-  font-size: 1.1rem;
+  padding: 16px 22px;
+  font-size: 1.25rem;
   color: white;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  transition: background 0.25s ease;
-  box-shadow: 0 4px 6px rgba(255, 111, 97, 0.5);
+  transition: background var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+  box-shadow: 0 5px 8px rgba(255, 111, 97, 0.5);
   text-align: center;
   user-select: none;
+  font-weight: 600;
+  letter-spacing: 0.03em;
 }
 
 .option-btn:hover,
 .option-btn:focus {
   background: var(--accent);
   outline: none;
-  box-shadow: 0 6px 12px rgba(255, 59, 48, 0.7);
+  box-shadow: 0 8px 16px rgba(255, 59, 48, 0.8);
+}
+
+#progress-container {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+}
+
+#quiz-progress {
+  width: 60%;
+  height: 20px;
+  border-radius: 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  overflow: hidden;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+#quiz-progress::-webkit-progress-bar {
+  background-color: var(--gray-light);
+  border-radius: 10px;
+}
+
+#quiz-progress::-webkit-progress-value {
+  background-color: var(--red-primary);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+#progress-text {
+  font-size: 1rem;
+  color: var(--gray-dark);
+  font-weight: 600;
+  min-width: 60px;
+  text-align: left;
 }
 
 #result-section {
   animation: fadeIn 0.7s ease forwards;
   text-align: center;
+  width: 100%;
 }
 
 #result-section h2 {
   color: var(--red-primary);
   font-weight: 700;
-  margin-bottom: 0.5rem;
-  font-size: 2rem;
+  margin-bottom: 0.7rem;
+  font-size: 2.2rem;
 }
 
 #result-section p {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
+  font-size: 1.15rem;
+  margin-bottom: 1.3rem;
+  line-height: 1.5;
 }
 
 #result-section ul {
   list-style: none;
   padding: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #result-section ul li {
-  font-size: 1.1rem;
-  margin: 6px 0;
+  font-size: 1.15rem;
+  margin: 8px 0;
   font-weight: 600;
   color: var(--gray-dark);
+  background: #ffe6e1;
+  border-radius: 8px;
+  padding: 10px 14px;
+  box-shadow: inset 0 0 6px rgba(217, 48, 37, 0.2);
 }
 
 .summary-link {
   display: inline-block;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   background: var(--red-primary);
   color: white;
-  padding: 12px 24px;
-  border-radius: 25px;
+  padding: 14px 28px;
+  border-radius: 30px;
   text-decoration: none;
-  font-weight: 600;
-  box-shadow: 0 4px 8px rgba(217, 48, 37, 0.4);
-  transition: background 0.3s ease;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 6px 12px rgba(217, 48, 37, 0.5);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .summary-link:hover {
   background: var(--accent);
+  box-shadow: 0 8px 16px rgba(255, 59, 48, 0.8);
 }
 
 footer {
@@ -140,7 +201,7 @@ footer {
   padding: 1rem 1rem;
   background: var(--red-primary);
   color: white;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   box-shadow: 0 -4px 6px rgba(217, 48, 37, 0.3);
 }
 

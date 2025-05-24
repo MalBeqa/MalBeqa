@@ -3,44 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Përmbledhje Ligjesh dhe Votimesh</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Policy Mirror - Përmbledhje Ligjesh dhe Votimesh</title>
+  <link rel="stylesheet" href="summary.css" />
 </head>
 <body>
   <header>
-    <h1>Përmbledhje Ligjesh dhe Votimesh</h1>
-    <p>Këtu mund të lexosh mbi ligjet dhe votimet e ardhshme që prekin fushat kryesore politike.</p>
+    <h1>Përmbledhje Ligjesh dhe Votimesh të Ardhshme</h1>
+    <nav>
+      <a href="index.html" class="back-link" aria-label="Kthehu tek kuizi">⬅ Kthehu tek Kuizi</a>
+    </nav>
+    <div id="party-result" tabindex="0" aria-live="polite"></div>
   </header>
 
-  <main class="summary-main">
-    <section>
-      <h2><a href="https://example.com/taksat-ekonomia" target="_blank" rel="noopener noreferrer">Taksat dhe Ekonomia</a></h2>
-      <p>Ligjet për taksat ndikojnë në barazinë sociale dhe zhvillimin ekonomik. Për votimet e ardhshme, parashikohet debat mbi rritjen e tatimeve për të ardhurat e larta dhe përfitime sociale.</p>
-    </section>
-
-    <section>
-      <h2><a href="https://example.com/mjedisi-energjia" target="_blank" rel="noopener noreferrer">Mjedisi dhe Energjetika</a></h2>
-      <p>Votimet fokusohet në subvencionimin e energjisë së pastër dhe kufizimin e ndotjes së ajrit. Ligjet e reja synojnë përmirësimin e cilësisë së ajrit dhe përkrahjen e inovacioneve ekologjike.</p>
-    </section>
-
-    <section>
-      <h2><a href="https://example.com/shendetesia-te-drejtat" target="_blank" rel="noopener noreferrer">Shëndetësia dhe Të Drejtat</a></h2>
-      <p>Debatet për sistemin shëndetësor dhe të drejtat individuale përfshijnë çështje të abortit, legalizimit të kanabisit, dhe kontrollin e armëve. Votimet e ardhshme do të përcaktojnë politikat sociale në këto fusha.</p>
-    </section>
-
-    <section>
-      <h2><a href="https://example.com/siguria-privatesia" target="_blank" rel="noopener noreferrer">Siguria dhe Privatësia</a></h2>
-      <p>Ligjet për kontrollin e armëve, mbrojtjen kombëtare dhe privatësinë dixhitale janë në fokus. Debatet për mbikëqyrjen dixhitale dhe kontrollin e armëve do të vazhdojnë në seancat parlamentare të ardhshme.</p>
-    </section>
-
-    <section>
-      <h2><a href="https://example.com/arsim-kultura" target="_blank" rel="noopener noreferrer">Arsimi dhe Kultura</a></h2>
-      <p>Investimet në arsim dhe roli i fesë në shtet janë tema kyçe. Votimet për ndryshime në sistemin arsimor dhe respektimin e trashëgimisë kulturore priten të jenë vendimtare.</p>
+  <main>
+    <section id="laws-summary" tabindex="0" aria-label="Lista e ligjeve dhe votimeve të ardhshme">
+      <h2>20 Ligjet më të Rëndësishme për Votim</h2>
+      <ul>
+        <li><a href="https://gzk.rks-gov.net/ActDocumentDetail.aspx?ActID=2770" target="_blank" rel="noopener noreferrer">Ligji për Përmirësimin e Arsimit</a> – Rritje investimesh në infrastrukturën shkollore dhe teknologji.</li>
+        <li><a href="https://gzk.rks-gov.net/ActDocumentDetail.aspx?ActID=2631" target="_blank" rel="noopener noreferrer">Ligji për Mbrojtjen e Mjedisit</a> – Masa për reduktimin e ndotjes dhe promovimin e energjive të ripërtëritshme.</li>
+        <li><a href="https://gzk.rks-gov.net/ActDetail.aspx?ActID=8666" target="_blank" rel="noopener noreferrer">Ligji për Reformën e Shëndetësisë</a> – Përmirësim i aksesit në shërbimet shëndetësore dhe investim në teknologji mjekësore.</li>
+        <li><a href="https://gzk.rks-gov.net/ActDocumentDetail.aspx?ActID=2785" target="_blank" rel="noopener noreferrer">Ligji për Sigurinë Publike</a> – Forcim i masave kundër kriminalitetit dhe investime në polici.</li>
+        <li><a href="https://kline.rks-gov.net/wp-content/uploads/2025/05/PLANI-I-VEPRIMIT-PE-TRANSPARENCE-KOMUNALE-2025-2029.docx" target="_blank" rel="noopener noreferrer">Ligji për Rritjen e Transparencës</a> – Nisma për qeverisje më të hapur dhe anti-korrupsion.</li>
+        <li><a href="https://gzk.rks-gov.net/ActDocumentDetail.aspx?ActID=2735" target="_blank" rel="noopener noreferrer">Ligji për Punësimin dhe Mirëqenien Sociale</a> – Mbështetje për punëtorët dhe përmirësim i kushteve të punës.</li>
+        <li><a href="https://gzk.rks-gov.net/ActDocumentDetail.aspx?ActID=18616" target="_blank" rel="noopener noreferrer">Ligji për Teknologjinë dhe Privatësinë</a> – Mbrojtje më e madhe e të dhënave personale në internet.</li>
+        <li><a href="https://gzk.rks-gov.net/ActDocumentDetail.aspx?ActID=8688" target="_blank" rel="noopener noreferrer">Ligji për Infrastrukturën dhe Transportin</a> – Investime në rrugë, hekurudha dhe transport publik.</li>
+        <li><a href="https://gzk.rks-gov.net/ActDetail.aspx?ActID=10923" target="_blank" rel="noopener noreferrer">Ligji për Barazinë Gjinore</a> – Masa kundër diskriminimit dhe promovim i barazisë në punë dhe shoqëri.</li>
+        <li><a href="https://gzk.rks-gov.net/ActDetail.aspx?ActID=2416" target="_blank" rel="noopener noreferrer">Ligji për Përkrahjen e Bizneseve të Vogla</a> – Lehtësim i taksave dhe subvencione për sipërmarrësit e rinj.</li>
+        <li><a href="https://gzk.rks-gov.net/ActDocumentDetail.aspx?ActID=18188" target="_blank" rel="noopener noreferrer">Ligji për Shkencën dhe Inovacionin</a> – Financim për kërkime shkencore dhe startup-e teknologjike.</li>
+        <li><a href="https://gzk.rks-gov.net/ActDetail.aspx?ActID=16551" target="_blank" rel="noopener noreferrer">Ligji për Mbrojtjen e Konsumatorit</a> – Rregulla më të rrepta për cilësinë dhe sigurinë e produkteve.</li>
+        <li><a href="https://gzk.rks-gov.net/ActDocumentDetail.aspx?ActID=2533" target="_blank" rel="noopener noreferrer">Ligji për Kulturën dhe Trashëgiminë</a> – Mbrojtje dhe promovim i vlerave kulturore dhe historike.</li>
+        <li><a href="https://gzk.rks-gov.net/ActDetail.aspx?ActID=71733" target="_blank" rel="noopener noreferrer">Ligji për Zhvillimin Rural</a> – Mbështetje për fermerët dhe investime në zonat rurale.</li>
+        <li><a href="https://gzk.rks-gov.net/ActDetail.aspx?ActID=2761" target="_blank" rel="noopener noreferrer">Ligji për Arsimin e Lartë</a> – Reforma në universitetet dhe rritje e bursave.</li>
+        <li><a href="https://gzk.rks-gov.net/ActDocumentDetail.aspx?ActID=20844" target="_blank" rel="noopener noreferrer">Ligji për Mbrojtjen e Fëmijëve</a> – Masa kundër abuzimit dhe përmirësim i shërbimeve sociale për fëmijët.</li>
+        <li><a href="https://gzk.rks-gov.net/ActDocumentDetail.aspx?ActID=12744" target="_blank" rel="noopener noreferrer">Ligji për Menaxhimin e Energjisë</a> – Promovim i efikasitetit dhe burimeve të rinovueshme.</li>
+        <li><a href="https://konsultimet.rks-gov.net/viewConsult.php?ConsultationID=42476" target="_blank" rel="noopener noreferrer">Ligji për Drejtësinë dhe Reforma Gjyqësore</a> – Pavarësi më e madhe e sistemit gjyqësor dhe luftë kundër korrupsionit.</li>
+        <li><a href="https://www.drejtesia.gov.al/wp-content/uploads/2023/03/PLANI-KOMB%C3%8BTAR-P%C3%8BR-INTEGRIMIN-EVROPIAN-2023-2025.pdf" target="_blank" rel="noopener noreferrer">Ligji për Integrimin Evropian</a> – Nisma për afrimin me standardet dhe politikat e BE-së.</li>
+        <li><a href="https://gzk.rks-gov.net/ActDetail.aspx?ActID=85232" target="_blank" rel="noopener noreferrer">Ligji për Kulturën Digjitale</a> – Rregulla dhe mbështetje për zhvillimin e përmbajtjeve dixhitale dhe teknologjive të reja.</li>
+      </ul>
     </section>
   </main>
 
   <footer>
-    <small>© 2025 Policy Mirror. Të gjitha të drejtat e rezervuara.</small>
+    <p>© 2025 Policy Mirror. Të gjitha të drejtat e rezervuara.</p>
   </footer>
 </body>
 </html>
