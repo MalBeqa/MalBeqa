@@ -198,7 +198,7 @@ const questions = [
     if (question.policyTags.some(tag => ldkTags.includes(tag))) ldkScore += answerIndex;
   });
   
-    function getMatchingParty(ekonomiScore, mjedisScore, socialScore) {
+    function getMatchingParty(pdkScore, lvvScore, ldkScore) {
       const parties = [
         { name: "Partia Demokratike e Kosovës", focus: "Fokus në taksa dhe ekonomi", score: pdkScore },
         { name: "Lëvizja Vetëvendosje", focus: "Politika mjedisore dhe energjia", score: lvvScore },
