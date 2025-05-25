@@ -186,9 +186,9 @@ const questions = [
     let lvvScore = 0;
     let ldkScore = 0;
   
-    const pdkTags = ["ekonomi", "taksa", "infrastrukturë", "media", "ndërtimi", "tarifa"];
-    const lvvTags = ["mjedis", "energjinë", "shtetit", "ekonomi", "BE", "dezinformata", "subvencione", "tarifa"];
-    const ldkTags = ["te drejtat", "teknologjisë", "ekonomi", "media", "korporatave", "pushtetit", "social"];
+    const pdkTags = ["ekonomi", "takse", "infrastrukturë", "media", "ndërtimi", "tarifa"];
+    const lvvTags = ["mjedis", "energjia", "shtetit", "ekonomi", "BE", "dezinformata", "subvencione", "tarifa"];
+    const ldkTags = ["te drejtat", "teknologji", "ekonomi", "media", "korporatave", "pushtetit", "sociale"];
 
   userAnswers.forEach((answerIndex, questionIndex) => {
   const question = questions[questionIndex];
