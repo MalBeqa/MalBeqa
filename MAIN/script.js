@@ -73,7 +73,57 @@ const questions = [
       question: "Si e sheh rolin e BE-së në politikën kombëtare?",
       options: ["Mbështetje e plotë", "Kritike", "Neutral"],
       policyTags: ["politikë", "bashkëpunim"]
-    }
+    },
+    {
+    question: "A duhet të ketë kufizime më të mëdha ndaj mediave që përhapin dezinformata?",
+    options: ["Po, për të mbrojtur publikun", "Jo, liri e shprehjes", "Vetëm për media të caktuara"],
+    policyTags: ["media", "te drejtat"]
+  },
+  {
+    question: "Cili duhet të jetë prioriteti në politikat bujqësore?",
+    options: ["Subvencione për fermerët vendas", "Import i lirë për çmime më të ulëta", "Ekuilibër ndërmjet të dyjave"],
+    policyTags: ["bujqësi", "ekonomi"]
+  },
+  {
+    question: "A duhet të legalizohet eutanazia në raste të pashpresa mjekësore?",
+    options: ["Po, me kushte të rrepta", "Jo", "Vetëm me vendim të gjykatës"],
+    policyTags: ["shendetesia", "etika"]
+  },
+  {
+    question: "A duhet shteti të ofrojë të ardhura bazë për të gjithë qytetarët?",
+    options: ["Po, për siguri sociale", "Jo, është e paqëndrueshme", "Vetëm për të papunët"],
+    policyTags: ["ekonomi", "sociale"]
+  },
+  {
+    question: "A duhet të ndalohet ndërtimi në zona të mbrojtura natyrore?",
+    options: ["Po, në çdo rast", "Jo, me leje strikte", "Vetëm për projekte të rëndësishme publike"],
+    policyTags: ["mjedis", "urbanizim"]
+  },
+  {
+    question: "A duhet të ketë kuota gjinore në politikë dhe drejtues shtetërorë?",
+    options: ["Po", "Jo", "Vetëm në parti politike"],
+    policyTags: ["te drejtat", "barazi"]
+  },
+  {
+    question: "Si duhet trajtuar edukimi seksual në shkolla?",
+    options: ["Të jetë pjesë e kurrikulës", "Vetëm me pëlqim prindëror", "Të shmanget në moshat e hershme"],
+    policyTags: ["arsim", "shendetesia"]
+  },
+  {
+    question: "A duhet të vendosen tarifa ndaj korporatave ndërkombëtare që operojnë në vend?",
+    options: ["Po, për të mbrojtur bizneset lokale", "Jo, për të nxitur investimet", "Vetëm në sektorët strategjikë"],
+    policyTags: ["ekonomi", "tregti"]
+  },
+  {
+    question: "Cili është qëndrimi yt për rritjen e kompetencave të pushtetit lokal?",
+    options: ["Duhet decentralizim", "Duhet më shumë kontroll qendror", "Balancë aktuale është e mirë"],
+    policyTags: ["qeverisje", "lokale"]
+  },
+  {
+    question: "A duhet të vendoset shërbimi ushtarak i detyrueshëm?",
+    options: ["Po", "Jo", "Vetëm në raste të jashtëzakonshme"],
+    policyTags: ["mbrojtja", "siguria"]
+  }
   ];
   
   let currentQuestionIndex = 0;
@@ -132,28 +182,33 @@ const questions = [
       </section>
     `;
   
-    let ekonomiScore = 0;
-    let mjedisScore = 0;
-    let socialScore = 0;
+    let pdkScore = 0;
+    let lvvScore = 0;
+    let ldkScore = 0;
   
-    userAnswers.forEach((answerIndex, questionIndex) => {
-      const question = questions[questionIndex];
-      if (question.policyTags.includes("ekonomi")) ekonomiScore += answerIndex;
-      if (question.policyTags.includes("mjedis")) mjedisScore += answerIndex;
-      if (question.policyTags.includes("te drejtat") || question.policyTags.includes("social")) socialScore += answerIndex;
-    });
+    const pdkTags = ["ekonomi", "taksa", "infrastrukturë", "media", "ndërtimi", "tarifa"];
+    const lvvTags = ["mjedis", "energjinë", "shtetit", "ekonomi", "BE", "dezinformata", "subvencione", "tarifa"];
+    const ldkTags = ["te drejtat", "teknologjisë", "ekonomi", "media", "korporatave", "pushtetit", "social"];
+
+  userAnswers.forEach((answerIndex, questionIndex) => {
+  const question = questions[questionIndex];
+  
+    if (question.policyTags.some(tag => pdkTags.includes(tag))) pdkScore += answerIndex;
+    if (question.policyTags.some(tag => lvvTags.includes(tag))) lvvScore += answerIndex;
+    if (question.policyTags.some(tag => ldkTags.includes(tag))) ldkScore += answerIndex;
+  });
   
     function getMatchingParty(ekonomiScore, mjedisScore, socialScore) {
       const parties = [
-        { name: "Partia Demokratike e Kosovës", focus: "Fokus në taksa dhe ekonomi", score: ekonomiScore },
-        { name: "Lëvizja Vetëvendosje", focus: "Politika mjedisore dhe energjia", score: mjedisScore },
-        { name: "Lidhja Demokratike e Kosovës", focus: "Politika sociale dhe të drejtat", score: socialScore },
+        { name: "Partia Demokratike e Kosovës", focus: "Fokus në taksa dhe ekonomi", score: pdkScore },
+        { name: "Lëvizja Vetëvendosje", focus: "Politika mjedisore dhe energjia", score: lvvScore },
+        { name: "Lidhja Demokratike e Kosovës", focus: "Politika sociale dhe të drejtat", score: ldkScore },
       ];
       parties.sort((a, b) => b.score - a.score);
       return parties[0];
     }
   
-    const matchedParty = getMatchingParty(ekonomiScore, mjedisScore, socialScore);
+    const matchedParty = getMatchingParty(pdkScore, lvvScore, ldkScore);
   
     const resultDiv = document.getElementById('party-result');
     resultDiv.innerHTML = `
